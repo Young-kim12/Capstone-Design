@@ -63,3 +63,4 @@
 
 * [프로젝트 데모 영상 보기](https://www.youtube.com/watch?v=your_video_id)
 * [외부 기술 스펙 참고 문서](https://example.com/spec)
+* [상세 설계 문서 바로가기](docs/Design.md)
