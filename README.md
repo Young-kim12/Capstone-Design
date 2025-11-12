@@ -1,66 +1,80 @@
-# 🤖 Project COMMAND CENTER
-## AI 관제 기반, 선제적 공급을 위한 자율 AMR 경로 최적화 시스템
+# 🤖 Project COMMAND CENTER  
+### AI-Driven Autonomous AMR Path Optimization for Proactive Material Supply
 
 ---
 
-## 📌 1. 프로젝트 개요 (Overview)
+## 📌 1. Project Overview  
 
-본 프로젝트 'Project COMMAND CENTER'는 스마트 팩토리의 **'무중단 생산'**을 목표로 하는 **AI 기반의 선제적 공급을 위한 자율 AMR 경로 최적화 시스템**입니다. 인간의 개입을 최소화하고 데이터 기반 예측으로 물류 흐름을 자동화하여 생산 라인의 다운타임을 **제로(0)에 가깝게** 만듭니다.
+**Project COMMAND CENTER** is an AI-driven autonomous AMR path optimization system designed for smart factories aiming for **zero-downtime production**.  
+By integrating predictive analytics and autonomous logistics, the system minimizes human intervention and prevents production delays through **proactive material supply orchestration**.
 
+---
 
+## ✨ 2. Key Features  
 
-## ✨ 2. 주요 기능 및 특징 (Key Features)
+- **Real-Time Inventory Detection & Prediction**  
+  The central AI control tower continuously monitors production line inventory and applies analytics to **predict material depletion before it occurs**.
 
-* **실시간 재고 감지 및 예측:** 중앙 AI 관제탑이 생산 라인 재고를 실시간으로 감지하고 분석하여 부품 소진을 **미리 예측**합니다.
-* **선제적 보급 임무 할당:** 예측 결과를 바탕으로 자율 이동 로봇(AMR)에게 최적의 경로로 보급 임무를 **선제적으로 할당**합니다.
-* **안정적인 자율 주행:** 라이다(LiDAR) 및 IMU 센서를 탑재하여 디지털 맵을 기반으로 **장애물을 회피**하며 안정적으로 주행합니다.
-* **자동 물류 운반:** 자체 리프트 메커니즘을 통해 물류 팔레트를 **자동으로 운반**합니다.
+- **Proactive Task Allocation**  
+  Based on predictive results, the system autonomously **assigns optimal supply missions to AMRs**, ensuring uninterrupted material flow.
 
+- **Reliable Autonomous Navigation**  
+  Equipped with **LiDAR** and **IMU** sensors, AMRs perform real-time obstacle avoidance and route correction using a pre-built digital map.
 
+- **Automated Material Handling**  
+  Integrated **self-lifting mechanisms** enable pallet pickup and delivery without operator input.
 
-## 📐 3. 시스템 아키텍처 (System Architecture)
+- **Interconnected Control Architecture**  
+  Each unit communicates bidirectionally with the AI control server, forming a **decentralized yet coordinated fleet system** that scales with production.
 
-본 시스템은 3개의 독립된 계층으로 구성되어 있습니다. 
-1.  **감지 계층 (Perception Layer):** 외부 환경 정보를 디지털 데이터로 변환합니다.
-    * **담당 구성 요소:** **AI 비전 서버**
-2.  **인지 및 결정 계층 (Cognition & Decision Layer):** 감지된 데이터를 바탕으로 최적의 행동을 결정합니다. (경로 최적화 및 임무 할당)
-    * **담당 구성 요소:** **AMR 탑재 라즈베리파이**
-3.  **구동 계층 (Actuation Layer):** 결정된 명령을 물리적인 움직임으로 실행합니다.
-    * **담당 구성 요소:** **모터 컨트롤러**
+---
 
+## 📐 3. System Architecture  
 
+The COMMAND CENTER operates on a three-layer hierarchical structure:
 
-## 🛠️ 4. 사용 기술 및 개발 환경 (Tech Stack)
+1. **Perception Layer**  
+   Converts environmental and operational data into digital signals.  
+   - **Module:** AI Vision Server
 
-| 구분 | 주요 기술 | 용도 |
+2. **Cognition & Decision Layer**  
+   Performs decision-making and path optimization using real-time data.  
+   - **Module:** Onboard Raspberry Pi (AMR Controller)
+
+3. **Actuation Layer**  
+   Executes control signals as physical movement and mechanical operations.  
+   - **Module:** STM32-Based Motor Controller
+
+---
+
+## 🛠️ 4. Technology Stack  
+
+| Category | Technology | Purpose |
 | :--- | :--- | :--- |
-| **하드웨어** | STM32, 라즈베리파이, LiDAR, IMU 센서 | 모터 제어 및 인지/결정 처리, 환경 데이터 수집 |
-| **소프트웨어** | Python (AI/ML), ROS (Robot Operating System), C/C++ | AI 관제탑, 경로 최적화 알고리즘, 실시간 제어 |
-| **개발 환경** | Git, GitHub, Visual Studio Code | 버전 관리 및 협업 환경 |
+| **Hardware** | STM32, Raspberry Pi, LiDAR, IMU | Motor control, localization, environmental perception |
+| **Software** | Python (AI/ML), ROS 2, C/C++ | AI-based control, path optimization, real-time control |
+| **Development Tools** | Git, GitHub, Visual Studio Code | Version management and collaborative development |
+
+*Additional integration options include ROS 2 packages, MQTT messaging, and real-time telemetry pipelines for AI inference feedback.*
 
 ---
 
+## 👥 5. Team Roles  
 
-
-## 👥 5. 팀원 및 역할
-
-* **팀원 A:** AI 관제 및 예측 알고리즘 개발
-* **팀원 B:** AMR 주행 및 경로 최적화 (라즈베리파이)
-* **팀원 C:** 모터 및 리프트 메커니즘 하드웨어 제어 (STM32)
+- **Member A:** AI monitoring and predictive algorithm development  
+- **Member B:** Autonomous navigation and path optimization (Raspberry Pi)  
+- **Member C:** Motor control and lift mechanism hardware (STM32)
 
 ---
 
+## 🎬 6. Demonstration  
 
+[Demo Video Link — To Be Added]
 
-## 🎬 6. 시연 영상 (Demo)
+---
 
-[프로젝트 시연 영상 링크]
+## 🌐 Reference Materials  
 
-
-
-
-### 🌐 참고 자료
-
-* [프로젝트 데모 영상 보기](https://www.youtube.com/watch?v=your_video_id)
-* [외부 기술 스펙 참고 문서](https://example.com/spec)
-* [상세 설계 문서 바로가기](docs/Design.md)
+- [Watch Project Demo](https://www.youtube.com/watch?v=your_video_id)  
+- [Technical Specification Document](https://example.com/spec)  
+- [Detailed Design Documentation](docs/Design.md)
