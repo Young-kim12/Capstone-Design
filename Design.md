@@ -1,65 +1,74 @@
-# 📑 상세 설계 문서: Project COMMAND CENTER
+# 📑 Detailed Design Document: Project COMMAND CENTER
 
 ---
 
-## 1. 하이레벨 아키텍처 및 데이터 흐름
+## 1. High-Level Architecture and Data Flow
 
-### 1.1. 시스템 계층 구조 요약
+### 1.1. System Layer Overview
 
-우리 시스템은 **감지(Perception) - 인지/결정(Cognition) - 구동(Actuation)**의 3계층 구조를 따르며, 데이터는 이 순서대로 하위 계층으로 전달되어 물리적 행동으로 변환됩니다. 
+The system follows a **three-layer architecture** of **Perception – Cognition/Decision – Actuation**.  
+Data flows downward through these layers, transforming from sensed information into physical actions.
 
-[Image of 3-layered system architecture diagram]
-
-
-### 1.2. 주요 데이터 흐름
-
-1.  **AI 비전 서버:** 생산 라인 이미지 분석 $\rightarrow$ 실시간 **재고 상태** 데이터 생성 및 MQTT 브로커 발행.
-2.  **AMR (라즈베리파이):** 재고 상태 수신 및 내부 **맵/경로 데이터**와 결합 $\rightarrow$ **최적 임무 및 경로** 결정 $\rightarrow$ 모터 컨트롤러에 명령 전달.
-3.  **모터 컨트롤러 (STM32):** 명령에 따라 **모터 PWM** 신호 출력 $\rightarrow$ AMR 구동 및 물류 팔레트 운반 실행.
+![Three-layer system architecture diagram](image_placeholder)
 
 ---
 
+### 1.2. Main Data Flow
 
-## 2. 모듈 상세 설계
+1. **AI Vision Server:**  
+   Performs production line image analysis → Generates real-time **inventory status** data → Publishes to **MQTT broker**.
 
-### 2.1. 경로 최적화 및 임무 할당 모듈 (라즈베리파이)
+2. **AMR (Raspberry Pi):**  
+   Subscribes to inventory status → Merges with internal **map/path data** → Determines **optimal mission and route** → Sends commands to the motor controller.
 
-| 설계 요소 | 내용 |
+3. **Motor Controller (STM32):**  
+   Converts received commands into **PWM motor control signals** → Drives AMR motion and executes pallet handling.
+
+---
+
+## 2. Module Design
+
+### 2.1. Path Optimization and Mission Assignment Module (Raspberry Pi)
+
+| Design Element | Details |
 | :--- | :--- |
-| **핵심 알고리즘** | **A* (A-star) 알고리즘** 기반의 경로 탐색 (최단 경로 및 장애물 회피) |
-| **입력 데이터** | 실시간 재고 상태 (MQTT), AMR 현재 위치 (IMU/GPS), 디지털 맵 데이터 |
-| **출력 데이터** | 다음 스텝 이동 명령 (Velocity, Angle), 모터 컨트롤러로의 시리얼 통신 명령 |
-| **언어/프레임워크** | Python, ROS (Robot Operating System) |
-
-
-
-### 2.2. 모터 제어 드라이버 (STM32)
-
-* **주요 역할:** 라즈베리파이로부터 받은 명령을 **PWM 신호**로 변환하여 모터를 정밀하게 제어합니다.
-* **통신 인터페이스:** 라즈베리파이와의 통신은 **UART**를 사용하며, 정해진 프로토콜로 명령을 수신합니다.
-* **제어 방식:** **PID 제어** 루프를 사용하여 모터의 속도 및 위치를 안정적으로 유지합니다.
+| **Core Algorithm** | **A\*** (A-star) algorithm for pathfinding (shortest path and obstacle avoidance) |
+| **Input Data** | Real-time inventory status (MQTT), AMR position (IMU/GPS), digital map data |
+| **Output Data** | Step-wise motion commands (Velocity, Angle), serial communication commands to motor controller |
+| **Languages/Frameworks** | Python, ROS (Robot Operating System) |
 
 ---
 
+### 2.2. Motor Control Driver (STM32)
 
+- **Primary Role:**  
+  Converts commands received from Raspberry Pi into **PWM signals** for precise motor control.
 
-## 3. 데이터 구조 정의
+- **Communication Interface:**  
+  Communicates with Raspberry Pi via **UART**, receiving commands based on a defined protocol.
 
+- **Control Method:**  
+  Implements a **PID control loop** to maintain stable motor speed and position feedback.
 
-### 3.1. 재고 상태 메시지 (AI 서버 $\rightarrow$ AMR)
+---
 
-| 필드 | 타입 | 설명 |
+## 3. Data Structure Definition
+
+### 3.1. Inventory Status Message (AI Server → AMR)
+
+| Field | Type | Description |
 | :--- | :--- | :--- |
-| `line_id` | String | 생산 라인 ID |
-| `item_id` | String | 소진 예상 부품 ID |
-| `predict_time` | Float | 예상 소진까지 남은 시간 (초) |
-| `priority` | Int | 임무 우선순위 (1~5) |
+| `line_id` | String | Production line identifier |
+| `item_id` | String | Predicted depleted part ID |
+| `predict_time` | Float | Remaining time until depletion (seconds) |
+| `priority` | Int | Task priority level (1–5) |
 
+---
 
-### 3.2. AMR 이동 명령 (AMR $\rightarrow$ 모터 컨트롤러)
+### 3.2. AMR Motion Command (AMR → Motor Controller)
 
-| 필드 | 타입 | 설명 |
+| Field | Type | Description |
 | :--- | :--- | :--- |
-| `linear_vel` | Float | 전진/후진 속도 (m/s) |
-| `angular_vel` | Float | 회전 각속도 (rad/s) |
-| `lift_command` | Boolean | 리프트 작동 (True/False) |
+| `linear_vel` | Float | Linear velocity (m/s) |
+| `angular_vel` | Float | Angular velocity (rad/s) |
+| `lift_command` | Boolean | Lift operation trigger (True/False) |
