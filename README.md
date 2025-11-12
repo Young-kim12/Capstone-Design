@@ -55,3 +55,11 @@
 ## 🎬 6. 시연 영상 (Demo)
 
 [프로젝트 시연 영상 링크]
+
+
+
+
+### 🌐 참고 자료
+
+* [프로젝트 데모 영상 보기](https://www.youtube.com/watch?v=your_video_id)
+* [외부 기술 스펙 참고 문서](https://example.com/spec)
